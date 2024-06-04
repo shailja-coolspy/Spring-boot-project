@@ -30,8 +30,9 @@ public class BookController {
 	}
 	
 	@GetMapping("/books")
-	public List<BookDTO> getAllBook(){
-        return bookService.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+	public List<Book> getAllBook(){
+       // return bookService.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+		return bookService.findAll();
 	}
 	
 	@GetMapping("/books/{id}")
@@ -66,19 +67,19 @@ public class BookController {
 		return "Deleted book id-" + id;
 	}
 	
-	 private BookDTO convertToDTO(Book book) {
-	        BookDTO bookDTO = new BookDTO();
-	        bookDTO.setId(book.getId());
-	        bookDTO.setTitle(book.getTitle());
-	        bookDTO.setImage(book.getImage());
-	        bookDTO.setReleaseDate(book.getReleaseDate());
-	        bookDTO.setDescription(book.getDescription());
-	        bookDTO.setAudioDuration(book.getAudioDuration());
-	        bookDTO.setReadDuration(book.getReadDuration());
-	        bookDTO.setAuthorName(book.getAuthor() != null ? book.getAuthor().getAuthorName() : null);
-	        bookDTO.setCategoryNames(book.getCategories().stream().map(Categorie::getCategoryName).collect(Collectors.toList()));
-	        return bookDTO;
-	    }
+//	 private BookDTO convertToDTO(Book book) {
+//	        BookDTO bookDTO = new BookDTO();
+//	        bookDTO.setId(book.getId());
+//	        bookDTO.setTitle(book.getTitle());
+//	        bookDTO.setImage(book.getImage());
+//	        bookDTO.setReleaseDate(book.getReleaseDate());
+//	        bookDTO.setDescription(book.getDescription());
+//	        bookDTO.setAudioDuration(book.getAudioDuration());
+//	        bookDTO.setReadDuration(book.getReadDuration());
+//	        bookDTO.setAuthorName(book.getAuthor() != null ? book.getAuthor().getAuthorName() : null);
+//	        bookDTO.setCategoryNames(book.getCategories().stream().map(Categorie::getCategoryName).collect(Collectors.toList()));
+//	        return bookDTO;
+//	    }
 	
 	
 	

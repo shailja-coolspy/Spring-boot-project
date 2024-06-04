@@ -3,6 +3,8 @@ package com.bookRealm.api_v1.entity;
 import jakarta.persistence.*;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import io.micrometer.common.lang.NonNull;
 
 @Entity
@@ -18,6 +20,7 @@ public class Author {
 	private String authorName;
 	
 	@OneToMany(mappedBy = "author")
+	@JsonBackReference
 	private List<Book> books;
 
 	public Author() {

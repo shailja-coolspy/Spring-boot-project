@@ -1,5 +1,8 @@
 package com.bookRealm.api_v1.entity;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,9 +20,10 @@ public class Categorie {
 	@Column(name="image_url")
 	private String imageUrl;
 	
-	@ManyToMany
-	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
-	private List<Book> books;
+//	@ManyToMany
+//	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
+//	@JsonBackReference
+//	private List<Book> books;
 
 	public Categorie() {
 		// TODO Auto-generated constructor stub
@@ -57,17 +61,17 @@ public class Categorie {
 		this.categoryName = categoryName;
 	}
 
-	public List<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
+//	public List<Book> getBooks() {
+//		return books;
+//	}
+//
+//	public void setBooks(List<Book> books) {
+//		this.books = books;
+//	}
 
 	@Override
 	public String toString() {
-		return "Categorie [id=" + id + ", categoryName=" + categoryName + ", books=" + books + "]";
+		return "Categorie [id=" + id + ", categoryName=" + categoryName +  "]";
 	}
 	
 	

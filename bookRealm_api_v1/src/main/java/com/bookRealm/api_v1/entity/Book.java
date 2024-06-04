@@ -2,6 +2,8 @@ package com.bookRealm.api_v1.entity;
 import java.time.Duration;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 
@@ -33,12 +35,14 @@ public class Book {
 	@Column(name="read_duration")
 	private Long readDuration;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="author_id")
+	@JsonManagedReference
 	private Author author;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
+	//@JsonManagedReference
 	private List<Categorie> categories;
 
 	public Book() {

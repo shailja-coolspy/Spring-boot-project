@@ -1,14 +1,15 @@
 package com.bookRealm.api_v1.service;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bookRealm.api_v1.dao.CategorieRepository;
 import com.bookRealm.api_v1.entity.Categorie;
 
+@Service
 public class CategoryService implements CategoryServiceInt{
 	
 	private CategorieRepository categorieRepository;
