@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +54,15 @@ public class BookController {
 		return bookService.save(book);
 	}
 	
+	
+	@PutMapping("/books/{id}")
+	public Book updateBook(@PathVariable Integer id,@RequestBody Book book) {
+		
+		bookService.update(book, id);
+		
+		return book;
+	}
+	
 	@DeleteMapping("/books/{id}")
 	public String deleteBook(@PathVariable int id)
 	{
@@ -66,6 +76,14 @@ public class BookController {
 		
 		return "Deleted book id-" + id;
 	}
+	
+	@GetMapping("/books/category/{categoryName}")
+	public List<Book> getBookByCategory(@PathVariable String categoryName){
+		return bookService.getBookByCategory(categoryName);
+	}
+
+	
+	
 	
 //	 private BookDTO convertToDTO(Book book) {
 //	        BookDTO bookDTO = new BookDTO();

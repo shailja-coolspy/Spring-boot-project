@@ -12,7 +12,12 @@ public interface BookServiceInt {
 	
 	Book save(Book book);
 	
+	Book update(Book book,Integer id);
+	
 	void deleteById(int id);
+	
+	List<Book> getBookByCategory(String categoryName);
+
 
 
 }

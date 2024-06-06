@@ -42,7 +42,7 @@ public class Book {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
-	//@JsonManagedReference
+	@JsonManagedReference
 	private List<Categorie> categories;
 
 	public Book() {
@@ -100,21 +100,39 @@ public class Book {
 		this.description = description;
 	}
 
-	public Duration getAudioDuration() {
-		return audioDuration!=null?Duration.ofSeconds(audioDuration):null;
+//	public Duration getAudioDuration() {
+//		return audioDuration!=null?Duration.ofSeconds(audioDuration):null;
+//	}
+//
+//	public void setAudioDuration(Duration audioDuration) {
+//		this.audioDuration = audioDuration!=null?audioDuration.getSeconds():null;
+//	}
+
+//	public Duration getReadDuration() {
+//		return readDuration!=null?Duration.ofSeconds(readDuration):null;
+//	}
+	
+	
+
+	public Long getAudioDuration() {
+		return audioDuration;
 	}
 
-	public void setAudioDuration(Duration audioDuration) {
-		this.audioDuration = audioDuration!=null?audioDuration.getSeconds():null;
+	public Long getReadDuration() {
+		return readDuration;
 	}
 
-	public Duration getReadDuration() {
-		return readDuration!=null?Duration.ofSeconds(readDuration):null;
+	public void setReadDuration(Long readDuration) {
+		this.readDuration = readDuration;
 	}
 
-	public void setReadDuration(Duration readDuration) {
-		this.readDuration = readDuration!=null?readDuration.getSeconds():null;
+	public void setAudioDuration(Long audioDuration) {
+		this.audioDuration = audioDuration;
 	}
+
+//	public void setReadDuration(Duration readDuration) {
+//		this.readDuration = readDuration!=null?readDuration.getSeconds():null;
+//	}
 
 	public Author getAuthor() {
 		return author;

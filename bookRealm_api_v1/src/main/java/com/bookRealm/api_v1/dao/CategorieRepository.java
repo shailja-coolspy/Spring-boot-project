@@ -6,4 +6,5 @@ import com.bookRealm.api_v1.entity.Categorie;
 
 public interface CategorieRepository extends JpaRepository<Categorie, Integer>{
 
+	Categorie findByCategoryName(String categoryName);
 }

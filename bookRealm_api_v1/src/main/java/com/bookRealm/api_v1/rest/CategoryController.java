@@ -1,16 +1,8 @@
 package com.bookRealm.api_v1.rest;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,31 +11,30 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.bookRealm.api_v1.entity.Categorie;
 import com.bookRealm.api_v1.service.CategoryService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryController {
 	
 	private CategoryService categoryService;
-    private final ObjectMapper objectMapper;
+   // private final ObjectMapper objectMapper;
 
 
 	@Autowired
-	public CategoryController(CategoryService categoryService,ObjectMapper objectMapper) {
+	public CategoryController(CategoryService categoryService) {
 		super();
 		this.categoryService = categoryService;
-		this.objectMapper=objectMapper;
+		//this.objectMapper=objectMapper;
 	}
 	
 	@GetMapping("/categorys")
-	public List<Categorie> getAllBook(){
+	public List<Categorie> getAllCategory(){
        // return bookService.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 		return categoryService.findAll();
 	}
 	
 	@GetMapping("/categorys/{id}")
-	public Categorie getBookById(@PathVariable int id) {
+	public Categorie getCategoryById(@PathVariable int id) {
 		Categorie category=categoryService.findById(id);
 		
 		if(category==null) {
@@ -55,67 +46,51 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/categorys")
-	public ResponseEntity<Categorie> createBook(@RequestParam("category") String categoryJson,@RequestParam("imgFile")MultipartFile file)
+	public ResponseEntity<Categorie> createCategory(@RequestParam("categoryName") String categoryName,@RequestParam("imgFile")MultipartFile file)
 	{
 		//UPLOAD IMAGE FILE
 		if(file.isEmpty() || !file.getContentType().equals("image/jpeg")) {
 			throw new RuntimeException("File not uploaded or not jpeg file");
 		}else {
-			try {
-				Categorie category = objectMapper.readValue(categoryJson, Categorie.class);
+				//Categorie category = objectMapper.readValue(categoryJson, Categorie.class);
 
-				//System.out.println("---------------------check_____________");
-				
-				//File uploadDir=new ClassPathResource("static/image/").getFile();
-				Path uploadDir = Paths.get("public/images/");
-				
-				if(!Files.exists(uploadDir)) {
-					Files.createDirectories(uploadDir);
-				}
-				
-				//System.out.println("Check file uploadDir------||| "+uploadDir);
-				
-				
-				Path path=Paths.get(uploadDir.toAbsolutePath()+File.separator+LocalDate.now()+file.getOriginalFilename());
-				
-				//System.out.println("Check one");
-				
-				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-				
-				//System.out.println("Check two");
-				
+				if(categoryService.saveFile(file)) {
+					Categorie category = new Categorie();
+					
+				category.setCategoryName(categoryName);
+
 				category.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
 				
-
+				
 				//save category
 				return  ResponseEntity.ok(categoryService.save(category));
-				
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-			}
+				}else {
+		            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+				}				
 			
 		}
-		
 		
 		
 	}
 	
 	
 	
+	@PutMapping("/categorys/{id}")
+	public ResponseEntity<Categorie> updateCategory(@PathVariable Integer id,@RequestParam("categoryName") String categoryName,@RequestParam("imgFile")MultipartFile file)
+	{
+		
+		return categoryService.update(id, file,categoryName);
+		
+		
+	}
+	
+	
 	
 	@DeleteMapping("/categorys/{id}")
-	public String deleteBook(@PathVariable int id)
+	public String deleteCategory(@PathVariable int id)
 	{
-		Categorie category=categoryService.findById(id);
-		
-		if(category==null) {
-			throw new RuntimeException("Category id not found-"+ id);
-		}
 		
 		categoryService.deleteById(id);
 		

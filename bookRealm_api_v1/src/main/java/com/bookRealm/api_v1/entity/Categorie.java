@@ -20,10 +20,11 @@ public class Categorie {
 	@Column(name="image_url")
 	private String imageUrl;
 	
-//	@ManyToMany
-//	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
-//	@JsonBackReference
-//	private List<Book> books;
+	@ManyToMany(mappedBy = "categories")
+	//@ManyToMany
+	//@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
+	@JsonBackReference
+	private List<Book> books;
 
 	public Categorie() {
 		// TODO Auto-generated constructor stub
@@ -61,13 +62,13 @@ public class Categorie {
 		this.categoryName = categoryName;
 	}
 
-//	public List<Book> getBooks() {
-//		return books;
-//	}
-//
-//	public void setBooks(List<Book> books) {
-//		this.books = books;
-//	}
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 	@Override
 	public String toString() {
