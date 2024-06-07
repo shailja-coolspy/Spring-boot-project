@@ -19,7 +19,11 @@ public class Author {
 	@Column(name="author_name",unique = true)
 	private String authorName;
 	
-	@OneToMany(mappedBy = "author")
+
+	@Column(name="image_url")
+	private String imageUrl;
+	
+	@OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<Book> books;
 
@@ -27,9 +31,10 @@ public class Author {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Author(String authorName) {
+	public Author(String authorName,String imageUrl) {
 		super();
 		this.authorName = authorName;
+		this.imageUrl=imageUrl;
 	}
 	
 	
@@ -48,6 +53,16 @@ public class Author {
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+	
+	
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public List<Book> getBooks() {

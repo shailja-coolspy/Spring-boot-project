@@ -101,4 +101,17 @@ public class BookService implements BookServiceInt {
 	
 	}
 
+
+	@Override
+	public List<Book> getBookByAuthor(Integer id) {
+		// TODO Auto-generated method stub
+		
+		List<Book> books=bookRepository.findByAuthorId(id);
+		
+		if(books.isEmpty()) {
+			return null;
+		}
+		return books;
+	}
+
 }

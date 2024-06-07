@@ -18,6 +18,7 @@ public interface BookServiceInt {
 	
 	List<Book> getBookByCategory(String categoryName);
 
+	List<Book> getBookByAuthor(Integer id);
 
 
 }

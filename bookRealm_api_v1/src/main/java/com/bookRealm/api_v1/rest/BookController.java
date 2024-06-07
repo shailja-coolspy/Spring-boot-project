@@ -77,11 +77,20 @@ public class BookController {
 		return "Deleted book id-" + id;
 	}
 	
+	//get book by category
+	
 	@GetMapping("/books/category/{categoryName}")
 	public List<Book> getBookByCategory(@PathVariable String categoryName){
 		return bookService.getBookByCategory(categoryName);
 	}
-
+	
+	
+	
+	//get book by author id
+	@GetMapping("/books/author/{id}")
+	public List<Book> getBookByAuthor(@PathVariable Integer id){
+		return bookService.getBookByAuthor(id);
+	}
 	
 	
 	

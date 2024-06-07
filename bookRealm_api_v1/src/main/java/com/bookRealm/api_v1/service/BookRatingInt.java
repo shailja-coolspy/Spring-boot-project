@@ -12,7 +12,7 @@ BookRating findById(int id);
 	
 BookRating save(BookRating bookRating);
 	
-	void deleteById(int id);
+void deleteById(int id);
 
 
 }

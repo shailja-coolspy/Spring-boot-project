@@ -35,7 +35,7 @@ public class Book {
 	@Column(name="read_duration")
 	private Long readDuration;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="author_id")
 	@JsonManagedReference
 	private Author author;
