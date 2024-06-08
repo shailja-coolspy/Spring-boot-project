@@ -44,7 +44,13 @@ public class Book {
 	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
 	@JsonManagedReference
 	private List<Categorie> categories;
-
+	
+	
+	@OneToMany(mappedBy = "book")
+	@JsonManagedReference
+	private List<AudioEpisodes> audioEpisodes;
+	
+	
 	public Book() {
 		// TODO Auto-generated constructor stub
 	}

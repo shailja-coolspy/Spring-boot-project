@@ -1,12 +1,15 @@
 package com.bookRealm.api_v1.entity;
 
-import java.time.Duration;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +33,11 @@ public class AudioEpisodes {
 	
 	@Column(name="image_url")
 	private String image_url;
+	
+	@ManyToOne
+	@JoinColumn(name="book_id")
+	@JsonBackReference
+	private Book book;
 
 	public AudioEpisodes() {
 		super();
@@ -60,13 +68,22 @@ public class AudioEpisodes {
 		this.title = title;
 	}
 
-	public Duration getAudioDuration() {
-		return audioDuration!=null?Duration.ofSeconds(audioDuration):null;
+	
 
+	public Long getAudioDuration() {
+		return audioDuration;
 	}
 
-	public void setAudioDuration(Duration audioDuration) {
-		this.audioDuration = audioDuration!=null?audioDuration.getSeconds():null;
+	public void setAudioDuration(Long audioDuration) {
+		this.audioDuration = audioDuration;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	public String getAudio_url() {
