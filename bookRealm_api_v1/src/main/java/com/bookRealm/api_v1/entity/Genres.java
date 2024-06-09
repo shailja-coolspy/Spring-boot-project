@@ -1,5 +1,10 @@
 package com.bookRealm.api_v1.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +21,12 @@ public class Genres {
 	
 	@Column(name="image_url")
 	private String imageUrl;
+	
+	@ManyToMany
+	@JoinTable(name="bookgenres",joinColumns = @JoinColumn(name="genre_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
+	@JsonBackReference
+	private List<Book> books;
+	
 
 	public Genres() {
 		super();
@@ -50,6 +61,14 @@ public class Genres {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 	
 	

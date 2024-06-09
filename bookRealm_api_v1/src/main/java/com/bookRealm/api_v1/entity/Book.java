@@ -1,5 +1,4 @@
 package com.bookRealm.api_v1.entity;
-import java.time.Duration;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -55,6 +54,12 @@ public class Book {
 	@JoinTable(name="bookcrewcast",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="cast_id"))
 	@JsonManagedReference
 	private List<CastCrew> castCrews;
+	
+	@ManyToMany
+	@JoinTable(name="bookgenres",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="genre_id"))
+	@JsonManagedReference
+	private List<Genres> genres;
+	
 	
 	
 	
