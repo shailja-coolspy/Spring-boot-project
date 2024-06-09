@@ -40,7 +40,7 @@ public class Book {
 	@JsonManagedReference
 	private Author author;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name="bookcategories",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
 	@JsonManagedReference
 	private List<Categorie> categories;
@@ -49,6 +49,13 @@ public class Book {
 	@OneToMany(mappedBy = "book")
 	@JsonManagedReference
 	private List<AudioEpisodes> audioEpisodes;
+	
+	
+	@ManyToMany
+	@JoinTable(name="bookcrewcast",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="cast_id"))
+	@JsonManagedReference
+	private List<CastCrew> castCrews;
+	
 	
 	
 	public Book() {
