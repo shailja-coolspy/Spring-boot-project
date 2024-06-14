@@ -1,5 +1,9 @@
 package com.bookRealm.api_v1.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +17,11 @@ public class Tags {
 	
 	@Column(name="tag_name")
 	private String tag_name;
+	
+	@ManyToMany
+	@JoinTable(name="booktags",joinColumns = @JoinColumn(name="tag_id"),inverseJoinColumns = @JoinColumn(name="book_id"))
+	@JsonBackReference
+	private List<Book> books;
 	
 	
 
@@ -45,6 +54,16 @@ public class Tags {
 
 	public void setTag_name(String tag_name) {
 		this.tag_name = tag_name;
+	}
+
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 	
 	

@@ -49,6 +49,10 @@ public class Book {
 	@JsonManagedReference
 	private List<AudioEpisodes> audioEpisodes;
 	
+	@OneToMany(mappedBy = "book")
+	@JsonManagedReference
+	private List<ReadEpisodes> readEpisodes;
+	
 	
 	@ManyToMany
 	@JoinTable(name="bookcrewcast",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="cast_id"))
@@ -59,6 +63,12 @@ public class Book {
 	@JoinTable(name="bookgenres",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="genre_id"))
 	@JsonManagedReference
 	private List<Genres> genres;
+	
+	
+	@ManyToMany
+	@JoinTable(name="booktags",joinColumns = @JoinColumn(name="book_id"),inverseJoinColumns = @JoinColumn(name="tag_id"))
+	@JsonManagedReference
+	private List<Tags> tags;
 	
 	
 	
@@ -167,6 +177,42 @@ public class Book {
 	public void setCategories(List<Categorie> categories) {
 		this.categories = categories;
 	}
+	
+	
+
+	public List<AudioEpisodes> getAudioEpisodes() {
+		return audioEpisodes;
+	}
+
+	public void setAudioEpisodes(List<AudioEpisodes> audioEpisodes) {
+		this.audioEpisodes = audioEpisodes;
+	}
+
+	public List<ReadEpisodes> getReadEpisodes() {
+		return readEpisodes;
+	}
+
+	public void setReadEpisodes(List<ReadEpisodes> readEpisodes) {
+		this.readEpisodes = readEpisodes;
+	}
+
+	public List<CastCrew> getCastCrews() {
+		return castCrews;
+	}
+
+	public void setCastCrews(List<CastCrew> castCrews) {
+		this.castCrews = castCrews;
+	}
+
+	public List<Genres> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genres> genres) {
+		this.genres = genres;
+	}
+	
+	
 
 	@Override
 	public String toString() {
