@@ -2,6 +2,8 @@ package com.bookRealm.api_v1.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +21,18 @@ public class BookReview {
 	@Column(name="review_date")
 	@Temporal(TemporalType.DATE)
 	private Date reviewDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	@JsonBackReference
+	private Book book;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@JsonBackReference
+	private User users;
+	
 	
 	
 
@@ -69,6 +83,30 @@ public class BookReview {
 
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
+	}
+
+
+
+	public Book getBook() {
+		return book;
+	}
+
+
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+
+
+	public User getUsers() {
+		return users;
+	}
+
+
+
+	public void setUsers(User users) {
+		this.users = users;
 	}
 	
 	

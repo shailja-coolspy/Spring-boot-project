@@ -35,6 +35,14 @@ public class User implements UserDetails {
 	@JsonManagedReference
 	private Profile profile;
 	
+	@OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<BookRating> bookRatings;
+	
+	@OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<BookReview> bookReviews;
+	
 	 @ManyToMany(fetch = FetchType.EAGER)
 	    @JoinTable(
 	        name = "userrole",
@@ -105,6 +113,16 @@ public class User implements UserDetails {
 	public void setRoles(List<Roles> roles) {
 		this.roles = roles;
 	}
+	
+	
+
+	public List<BookRating> getBookRatings() {
+		return bookRatings;
+	}
+
+	public void setBookRatings(List<BookRating> bookRatings) {
+		this.bookRatings = bookRatings;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -147,6 +165,14 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public List<BookReview> getBookReviews() {
+		return bookReviews;
+	}
+
+	public void setBookReviews(List<BookReview> bookReviews) {
+		this.bookReviews = bookReviews;
 	}
 
 	

@@ -70,6 +70,14 @@ public class Book {
 	@JsonManagedReference
 	private List<Tags> tags;
 	
+	@OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<BookRating> bookRatings;
+	
+	@OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<BookReview> bookReviews;
+	
 	
 	
 	
@@ -213,6 +221,31 @@ public class Book {
 	}
 	
 	
+
+	public List<Tags> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tags> tags) {
+		this.tags = tags;
+	}
+
+	public List<BookRating> getBookRatings() {
+		return bookRatings;
+	}
+
+	public void setBookRatings(List<BookRating> bookRatings) {
+		this.bookRatings = bookRatings;
+	}
+
+	
+	public List<BookReview> getBookReviews() {
+		return bookReviews;
+	}
+
+	public void setBookReviews(List<BookReview> bookReviews) {
+		this.bookReviews = bookReviews;
+	}
 
 	@Override
 	public String toString() {
