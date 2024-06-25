@@ -3,12 +3,17 @@ package com.bookRealm.api_v1.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -16,11 +21,17 @@ public class SecurityConfig {
 	
 	private CustomUserDetailService customUserDetailService;
 	
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	
 	
 	@Autowired
-	public SecurityConfig(CustomUserDetailService customUserDetailService) {
+	public SecurityConfig(CustomUserDetailService customUserDetailService,JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,JwtAuthenticationFilter jwtAuthenticationFilter) {
 		super();
 		this.customUserDetailService = customUserDetailService;
+		this.jwtAuthenticationEntryPoint=jwtAuthenticationEntryPoint;
+		this.jwtAuthenticationFilter=jwtAuthenticationFilter;
 	}
 
 	@Bean
@@ -52,18 +63,30 @@ public class SecurityConfig {
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 	        http.authorizeHttpRequests(configurer ->
-	                    configurer
-	                            .anyRequest().authenticated());
+	                    configurer.requestMatchers(HttpMethod.POST,"/api/v1/auth/login").permitAll()
+	                    .requestMatchers("/error").permitAll()
+	                            .anyRequest().authenticated()
+	                            );
+	        
+	        
 
 	        // use HTTP Basic authentication
-	        http.httpBasic(Customizer.withDefaults());
+	        //http.httpBasic(Customizer.withDefaults());
 
 	        // disable Cross Site Request Forgery (CSRF)
 	        // in general, not required for stateless REST APIs that use POST, PUT, DELETE and/or PATCH
-	        http.csrf(csrf -> csrf.disable());
-
+	        http.csrf(csrf -> csrf.disable())
+	        .exceptionHandling(ex->ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+	        .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+	        
+	        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+	        
+	        http.authenticationProvider(daoAuthenticationProvider());
+	        
 	        return http.build();
 	    }
+	  
+	  
 	  
 	  @Bean
 	  public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -76,10 +99,10 @@ public class SecurityConfig {
 		  return provider;
 	  }
 	  
-//	  @Bean
-//	  public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)throws Exception{
-//		  
-//		  return authenticationConfiguration.getAuthenticationManager();
-//	  }
+	  @Bean
+	  public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)throws Exception{
+		  
+		  return authenticationConfiguration.getAuthenticationManager();
+	  }
 
 }

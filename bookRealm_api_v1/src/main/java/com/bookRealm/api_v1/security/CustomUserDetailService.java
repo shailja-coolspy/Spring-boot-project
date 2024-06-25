@@ -28,6 +28,8 @@ private UserRepository userRepository;
 			// TODO Auto-generated method stub
 			//loading user from database by user
 			User user=userRepository.findByEmail(username);
+			//User user=userRepository.findByUserName(username);
+
 			
 			if(user==null) {
 				throw new RuntimeException("User with email-Id not found="+username);
