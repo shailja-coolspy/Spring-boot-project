@@ -75,7 +75,7 @@ public class UserService implements UserInt{
 		user.setUserEmail(userRequestDto.getUserEmail());
 		
 		//Encrypt User Password
-		user.setUserPassword("{bcrypt}"+passwordEncoder.encode(userRequestDto.getUserPassword()));
+		user.setUserPassword(passwordEncoder.encode(userRequestDto.getUserPassword()));
 		//user.setUserPassword(userRequestDto.getUserPassword());
 		
 		List<Roles> roles=new ArrayList<>();
@@ -119,7 +119,7 @@ public class UserService implements UserInt{
 			theUser.setUserEmail(userRequestDto.getUserEmail());
 			
 			//Encrypt User Password
-			theUser.setUserPassword("{bcrypt}"+passwordEncoder.encode(userRequestDto.getUserPassword()));
+			theUser.setUserPassword(passwordEncoder.encode(userRequestDto.getUserPassword()));
 			
 			//theUser.setUserPassword(userRequestDto.getUserPassword());
 			
