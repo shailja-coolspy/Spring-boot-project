@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookRealm.api_v1.dto.BookDTO;
@@ -31,9 +32,9 @@ public class BookController {
 	}
 	
 	@GetMapping("/books")
-	public List<Book> getAllBook(){
+	public List<Book> getAllBook(@RequestParam(value="pageNumber",defaultValue = "0",required = false)Integer pageNumber){
        // return bookService.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
-		return bookService.findAll();
+		return bookService.findAll(pageNumber);
 	}
 	
 	@GetMapping("/books/{id}")
@@ -92,6 +93,11 @@ public class BookController {
 		return bookService.getBookByAuthor(id);
 	}
 	
+	@GetMapping("/books/search/{keyword}")
+	public List<Book> searchBookByTitle(@PathVariable String keyword)
+	{
+		return bookService.searchBook(keyword);
+	}
 	
 	
 //	 private BookDTO convertToDTO(Book book) {

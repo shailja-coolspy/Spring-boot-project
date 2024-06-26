@@ -1,13 +1,16 @@
 package com.bookRealm.api_v1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bookRealm.api_v1.dao.BookRepository;
-import com.bookRealm.api_v1.dao.CastCrewRepository;
 import com.bookRealm.api_v1.dao.CategorieRepository;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Categorie;
+import com.bookRealm.api_v1.utils.AppConstraints;
 
 import java.util.*;
 
@@ -28,9 +31,16 @@ public class BookService implements BookServiceInt {
 	
 	//read
 	@Override
-	public List<Book> findAll() {
+	public List<Book> findAll(Integer pageNumber) {
 		// TODO Auto-generated method stub
-		return bookRepository.findAll();
+		System.out.println("page number="+pageNumber+" "+"page size="+AppConstraints.PAGE_SIZE);
+		Pageable pageable=PageRequest.of(pageNumber, AppConstraints.PAGE_SIZE);
+		
+		Page<Book> pageBook=bookRepository.findAll(pageable);
+		
+		List<Book> books=pageBook.getContent();
+		
+		return books;
 	}
 
 	@Override
@@ -112,6 +122,13 @@ public class BookService implements BookServiceInt {
 			return null;
 		}
 		return books;
+	}
+
+
+	@Override
+	public List<Book> searchBook(String keyword) {
+		// TODO Auto-generated method stub
+		return bookRepository.findByTitleContaining(keyword);
 	}
 
 }

@@ -6,7 +6,7 @@ import com.bookRealm.api_v1.entity.Book;
 
 public interface BookServiceInt {
 	
-	List<Book> findAll();
+	List<Book> findAll(Integer pageNumber);
 	
 	Book findById(int id);
 	
@@ -19,6 +19,10 @@ public interface BookServiceInt {
 	List<Book> getBookByCategory(String categoryName);
 
 	List<Book> getBookByAuthor(Integer id);
+	
+	
+	//Search Book
+	List<Book> searchBook(String keyword);
 
 
 }
