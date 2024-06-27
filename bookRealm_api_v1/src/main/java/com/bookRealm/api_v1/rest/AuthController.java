@@ -7,14 +7,21 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookRealm.api_v1.dto.JwtAuthRequest;
 import com.bookRealm.api_v1.dto.JwtAuthResponse;
+import com.bookRealm.api_v1.dto.UserRequestDto;
+import com.bookRealm.api_v1.entity.User;
 import com.bookRealm.api_v1.security.JwtTokenHelper;
+import com.bookRealm.api_v1.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,15 +33,19 @@ public class AuthController {
 	
 	private AuthenticationManager authenticationManager;
 	
+	private UserService userService;
+	
 	
 	
 	@Autowired
 	public AuthController(JwtTokenHelper jwtTokenHelper, UserDetailsService userDetailsService,
-			AuthenticationManager authenticationManager) {
+			AuthenticationManager authenticationManager,UserService userService) {
 		super();
 		this.jwtTokenHelper = jwtTokenHelper;
 		this.userDetailsService = userDetailsService;
 		this.authenticationManager = authenticationManager;
+		
+		this.userService=userService;
 	}
 
 
@@ -56,6 +67,20 @@ public class AuthController {
 		 return ResponseEntity.ok(authResponse);
 	}
 
+	
+	//register user
+	@PostMapping("/register")
+	public String registerUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+		return userService.registerUser(userRequestDto);
+	}
+	
+	
+	//confirm email
+	 @GetMapping("/confirm")
+	    public String confirmUser(@RequestParam String email) {
+	        boolean isConfirmed = userService.confirmUser(email);
+	        return isConfirmed ? "Email confirmed successfully." : "Invalid confirmation link.";
+	    }
 
 
 

@@ -15,6 +15,11 @@ public interface UserInt {
 	User save(User user);
 
 	User createUser(UserRequestDto userRequestDto);
+	
+	String registerUser(UserRequestDto userRequestDto);
+	
+	public boolean confirmUser(String email);
+
 
 	User updateUser(Integer id,UserRequestDto userRequestDto);
 

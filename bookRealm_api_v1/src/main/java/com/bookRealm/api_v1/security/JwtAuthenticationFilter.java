@@ -1,6 +1,8 @@
 package com.bookRealm.api_v1.security;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +28,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private JwtTokenHelper jwtTokenHelper;
 	
+	private static final List<String> SKIP_URLS = Arrays.asList(
+            "/api/v1/auth/login",
+            "/api/v1/auth/register",
+            "/api/v1/auth/confirm"
+    );
 	
 	@Autowired
 	public JwtAuthenticationFilter(UserDetailsService userDetailsService, JwtTokenHelper jwtTokenHelper) {
@@ -51,8 +58,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		    System.out.println("Request URI: " + requestURI + ", Method: " + requestMethod);
 		    
 		 // Skip JWT validation for specific endpoints
-	        if (requestURI.equals("/api/v1/auth/login") && requestMethod.equals("POST")) {
-	            // If it's a POST request to /api/v1/login, let it pass without token validation
+		    boolean skipRequest = SKIP_URLS.stream()
+	                .anyMatch(skipUrl -> (requestURI.startsWith(skipUrl) &&( requestMethod.equals("POST")|| requestMethod.equals("GET"))));
+
+	        if (skipRequest) {
 	            filterChain.doFilter(request, response);
 	            return;
 	        }

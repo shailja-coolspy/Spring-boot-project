@@ -31,6 +31,9 @@ public class User implements UserDetails {
 	@Column(name="password")
 	private String userPassword;
 	
+	@Column(name="enable")
+	private int enable;
+	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private Profile profile;
@@ -57,12 +60,13 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String userName, String userEmail, String userPassword, Profile profile, List<Roles> roles) {
+	public User(String userName, String userEmail, String userPassword,int enable, Profile profile, List<Roles> roles) {
 		super();
 		this.userName = userName;
 		this.email = userEmail;
 		this.userPassword = userPassword;
 		this.profile = profile;
+		this.enable=enable;
 		this.roles = roles;
 	}
 
@@ -123,6 +127,12 @@ public class User implements UserDetails {
 	public void setBookRatings(List<BookRating> bookRatings) {
 		this.bookRatings = bookRatings;
 	}
+	
+	public void setEnabled(boolean enable) {
+		// TODO Auto-generated method stub
+		this.enable=enable==true?1:0;
+	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -164,7 +174,7 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.enable==1?true:false;
 	}
 
 	public List<BookReview> getBookReviews() {
