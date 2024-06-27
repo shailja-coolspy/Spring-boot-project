@@ -10,6 +10,7 @@ import com.bookRealm.api_v1.dao.BookRepository;
 import com.bookRealm.api_v1.dao.CategorieRepository;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Categorie;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.utils.AppConstraints;
 
 import java.util.*;
@@ -53,7 +54,7 @@ public class BookService implements BookServiceInt {
 		if(result.isPresent()) {
 			theBook=result.get();
 		}else {
-			throw new RuntimeException("Did not find book id-"+id);
+			throw new CustomException("Did not find book id-"+id);
 		}
 		return theBook;
 	}
@@ -89,7 +90,7 @@ public class BookService implements BookServiceInt {
 		if(result.isPresent()) {
 			theBook=result.get();
 		}else {
-			throw new RuntimeException("Did not find book id-"+id);
+			throw new CustomException("Did not find book id-"+id);
 		}
 		
 		return bookRepository.save(theBook);

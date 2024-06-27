@@ -18,6 +18,7 @@ import com.bookRealm.api_v1.dao.ReadEpisodesRepository;
 import com.bookRealm.api_v1.dto.ReadEpRequestDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.ReadEpisodes;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class ReadEpisodesService implements ReadEpisodeInt {
@@ -50,7 +51,7 @@ public class ReadEpisodesService implements ReadEpisodeInt {
 		if(result.isPresent()) {
 			theReadEpisodes=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find Read episode with id-"+id);
 
 		}
 		return theReadEpisodes;
@@ -122,7 +123,7 @@ public class ReadEpisodesService implements ReadEpisodeInt {
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		if(findById(id)==null) {
-			throw new RuntimeException("Read Episode with id not found="+id);
+			throw new CustomException("Read Episode with id not found="+id);
 		}
 		readEpisodesRepository.deleteById(id);
 		
@@ -163,7 +164,7 @@ public class ReadEpisodesService implements ReadEpisodeInt {
 		Book book= bookService.findById(id);
 		
 		if(book==null) {
-			throw new RuntimeException("Did not find book with id-"+id);
+			throw new CustomException("Did not find book with id-"+id);
 		}
 		
 		

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookRealm.api_v1.dto.UserRequestDto;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.UserService;
 
 import jakarta.validation.Valid;
@@ -60,7 +61,7 @@ public class UserController {
 		User user=userService.findById(id);
 		
 		if(user==null) {
-			throw new RuntimeException("Found no user with id ="+id);
+			throw new CustomException("Found no user with id ="+id);
 		}
 		
 		userService.deleteById(id);

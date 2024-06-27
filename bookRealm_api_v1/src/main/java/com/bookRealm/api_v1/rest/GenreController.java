@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bookRealm.api_v1.dto.GenresDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Genres;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.GenresService;
 
 import jakarta.persistence.criteria.CriteriaBuilder.In;
@@ -58,7 +59,7 @@ public class GenreController {
 	public Genres updateGenres(@PathVariable Integer id,@RequestParam("imagFile")MultipartFile file,@ModelAttribute GenresDto genresDto) {
 		
 		if(file.isEmpty() || !file.getContentType().equals("image/jpeg")) {
-			throw new RuntimeException("File not uploaded or not jpeg file");
+			throw new CustomException("File not uploaded or not jpeg file");
 		}
 		
 		return genresService.updateGenres(id,file, genresDto);

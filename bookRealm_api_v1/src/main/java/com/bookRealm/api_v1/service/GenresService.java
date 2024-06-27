@@ -19,6 +19,7 @@ import com.bookRealm.api_v1.dao.GenresRepository;
 import com.bookRealm.api_v1.dto.GenresDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Genres;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class GenresService implements GenresInt {
@@ -50,7 +51,7 @@ Genres theGenres=null;
 		if(result.isPresent()) {
 			theGenres=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find book with author id-"+id);
 
 		}
 		return theGenres;	}
@@ -86,14 +87,14 @@ Genres theGenres=null;
 			}
 			
 			if(books.isEmpty()) {
-				throw new RuntimeException("No book with ids="+genresDto.getBookId());
+				throw new CustomException("No book with ids="+genresDto.getBookId());
 			}
 			genres.setName(genresDto.getGenresName());
 			genres.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
 			genres.setBooks(books);
 		}
 		else{
-			throw new RuntimeException("File did not saved");
+			throw new CustomException("File did not saved");
 			
 		}
 		
@@ -126,7 +127,7 @@ Genres theGenres=null;
 			}
 			
 			if(books.isEmpty()) {
-				throw new RuntimeException("No book with ids="+genresDto.getBookId());
+				throw new CustomException("No book with ids="+genresDto.getBookId());
 			}
 			
 			genres.setName(genresDto.getGenresName());
@@ -191,7 +192,7 @@ Genres theGenres=null;
 		Genres genres=findById(id);
 		
 		if(genres==null) {
-			throw new RuntimeException("Genres with id not found="+id);
+			throw new CustomException("Genres with id not found="+id);
 		}
 		return genres.getBooks();
 	}

@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.bookRealm.api_v1.exception.CustomException;
+import com.bookRealm.api_v1.exception.InvalidEmailException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -51,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		//Get Token
 		String requestToken=request.getHeader("Authorization");
 		
-		System.out.println("Bearer TOken = "+requestToken);
+		System.out.println("Bearer Token = "+requestToken);
 		
 		 String requestURI = request.getRequestURI();
 		    String requestMethod = request.getMethod();
@@ -81,7 +83,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				
 			} catch (IllegalArgumentException e) {
 				// TODO: handle exception
-				throw new IllegalArgumentException("Unable to get jwt token");
+				throw new CustomException("Unable to get jwt token");
 			}
 			catch (ExpiredJwtException e) {
 				// TODO: handle exception
@@ -92,12 +94,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 			catch (MalformedJwtException e) {
 				// TODO: handle exception
-				throw new MalformedJwtException("Invalid JWT");
+				throw new CustomException("Invalid JWT");
 			}
 			
 		}else {
 			
-			throw new RuntimeException("Jwt token does not begin with bearer");
+			throw new CustomException("Jwt token does not begin with bearer");
 		}
 		
 		
@@ -117,11 +119,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				
 			}
 			else {
-				throw new RuntimeException("Invalid jwt token");
+				throw new CustomException("Invalid jwt token");
 			}
 		}else {
 			
-			throw new RuntimeException("username is null or context is not null");
+			throw new CustomException("username is null or context is not null");
 		}
 		
 		

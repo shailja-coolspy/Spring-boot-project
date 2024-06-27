@@ -14,6 +14,8 @@ import com.bookRealm.api_v1.dao.UserRepository;
 import com.bookRealm.api_v1.dto.UserRequestDto;
 import com.bookRealm.api_v1.entity.Roles;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
+import com.bookRealm.api_v1.exception.InvalidEmailException;
 
 @Service
 public class UserService implements UserInt{
@@ -52,7 +54,7 @@ public class UserService implements UserInt{
 		if(result.isPresent()) {
 			theUser=result.get();
 		}else {
-			throw new RuntimeException("Did not find user id-"+id);
+			throw new CustomException("Did not find user id-"+id);
 		}
 		return theUser;
 	}
@@ -86,7 +88,7 @@ public class UserService implements UserInt{
 		            "Thank you for registering to BookRealm!");
 			
 		}else {
-			throw new IllegalArgumentException("Invalid email address="+email);
+			throw new InvalidEmailException("Invalid email address="+email);
 		}
 		
 		user.setUserName(userRequestDto.getUserName());
@@ -170,7 +172,7 @@ public class UserService implements UserInt{
 
 			
 		}else {
-			throw new RuntimeException("Did not find book id-"+id);
+			throw new CustomException("Did not find user id-"+id);
 		}
 		
 		emailService.sendRegistrationSuccessEmail(userRequestDto.getUserEmail(), "Update Successful", 
@@ -192,7 +194,7 @@ public class UserService implements UserInt{
 		User userexist=userRepository.findByEmail(email);
 		
 		if(userexist!=null) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new InvalidEmailException("Email already registered");
 		}
 
 		
@@ -241,7 +243,7 @@ public class UserService implements UserInt{
 					"Please click the following link to confirm your email: " + confirmationLink);
 			
 		}else {
-			throw new IllegalArgumentException("Invalid email address="+email);
+			throw new InvalidEmailException("Invalid email address="+email);
 		}
 		
 		

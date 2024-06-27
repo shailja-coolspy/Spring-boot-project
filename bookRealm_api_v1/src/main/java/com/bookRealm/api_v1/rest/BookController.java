@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookRealm.api_v1.dto.BookDTO;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Categorie;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.BookService;
 
 @RestController
@@ -70,7 +71,7 @@ public class BookController {
 		Book book=bookService.findById(id);
 		
 		if(book==null) {
-			throw new RuntimeException("Book id not found-"+ id);
+			throw new CustomException("Book id not found-"+ id);
 		}
 		
 		bookService.deleteById(id);

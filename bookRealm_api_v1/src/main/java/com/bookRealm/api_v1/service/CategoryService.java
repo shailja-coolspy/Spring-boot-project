@@ -19,6 +19,7 @@ import com.bookRealm.api_v1.dao.BookRepository;
 import com.bookRealm.api_v1.dao.CategorieRepository;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Categorie;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class CategoryService implements CategoryServiceInt{
@@ -50,7 +51,7 @@ public class CategoryService implements CategoryServiceInt{
 		if(result.isPresent()) {
 			theCategorie=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with category id-"+id);
+			throw new CustomException("Did not find book with category id-"+id);
 
 		}
 		
@@ -75,7 +76,7 @@ public class CategoryService implements CategoryServiceInt{
 		if(result.isPresent()) {
 			theCategorie=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with category id-"+id);
+			throw new CustomException("Did not find book with category id-"+id);
 
 		}
 		
@@ -113,7 +114,7 @@ public class CategoryService implements CategoryServiceInt{
 		if(result.isPresent()) {
 			//UPLOAD IMAGE FILE
 			if(file.isEmpty() || !file.getContentType().equals("image/jpeg")|| categoryName.isEmpty()) {
-				throw new RuntimeException("Detail empty not uploaded or not jpeg file");
+				throw new CustomException("Detail empty not uploaded or not jpeg file");
 			}else {
 				//System.out.println("Check two");
 				theCategorie=result.get();
@@ -124,14 +125,14 @@ public class CategoryService implements CategoryServiceInt{
 				theCategorie.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
 				
 				}else {
-					throw new RuntimeException("Cnanot process request-"+id);
+					throw new CustomException("Cnanot process request-"+id);
 
 				}
 				
 			}
 			
 		}else {
-			throw new RuntimeException("Did not find book id-"+id);
+			throw new CustomException("Did not find book id-"+id);
 		}
 		
 		return  ResponseEntity.ok(categorieRepository.save(theCategorie));

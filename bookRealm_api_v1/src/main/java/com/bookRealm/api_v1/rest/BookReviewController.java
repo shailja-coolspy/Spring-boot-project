@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookRealm.api_v1.dto.BookReviewDto;
 import com.bookRealm.api_v1.dto.BookReviewRequestDto;
 import com.bookRealm.api_v1.entity.BookReview;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.BookReviewService;
 
 @RestController
@@ -63,7 +64,7 @@ public class BookReviewController {
 	{
 		if(bookReviewService.findById(id)==null)
 		{
-			throw new RuntimeException("Book Review with id not found="+id);
+			throw new CustomException("Book Review with id not found="+id);
 		}
 		
 		bookReviewService.deleteById(id);

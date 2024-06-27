@@ -14,6 +14,7 @@ import com.bookRealm.api_v1.dto.BookRatingRequestDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.BookRating;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class BookRatingService implements BookRatingInt{
@@ -47,7 +48,7 @@ BookRating theBookRating=null;
 		if(result.isPresent()) {
 			theBookRating=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find book with author id-"+id);
 
 		}
 		return theBookRating;	}
@@ -94,7 +95,7 @@ BookRating theBookRating=null;
 		
 		if(bookRating==null)
 		{
-			throw new RuntimeException("Book Rating with id not found="+id);
+			throw new CustomException("Book Rating with id not found="+id);
 		}
 		
 		
@@ -104,7 +105,7 @@ BookRating theBookRating=null;
 		
 		if(book==null || user==null)
 		{
-			throw new RuntimeException("User or book id Not found");
+			throw new CustomException("User or book id Not found");
 		}
 		
 		
@@ -124,7 +125,7 @@ BookRating theBookRating=null;
 		
 		if(bookRatings.isEmpty())
 		{
-			throw new RuntimeException("No Rating for book id found="+id);
+			throw new CustomException("No Rating for book id found="+id);
 		}
 		
 		double overallRating=getOverallRating(bookRatings);

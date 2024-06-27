@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.bookRealm.api_v1.entity.Author;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.AuthorService;
 
 @RestController
@@ -40,7 +41,7 @@ public class AuthorController {
 		Author author=authorService.findById(id);
 		
 		if(author==null) {
-			throw new  RuntimeException("Authoe with id not present"+id);
+			throw new  CustomException("Author with id not present"+id);
 		}
 		
 		return author;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import com.bookRealm.api_v1.entity.Tags;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.TagsService;
 
 @RestController
@@ -42,7 +43,7 @@ public class TagsController {
 		Tags tags=tagsService.findById(id);
 		
 		if(tags==null) {
-			throw new RuntimeException("Tag does not exits with id="+id);
+			throw new CustomException("Tag does not exits with id="+id);
 		}
 		
 		return tagsService.updateTags(id,bookId, tagName);
@@ -54,7 +55,7 @@ public class TagsController {
 		Tags tags=tagsService.findById(id);
 		
 		if(tags==null) {
-			throw new RuntimeException("Tag does not exits with id="+id);
+			throw new CustomException("Tag does not exits with id="+id);
 		}
 		
 		tagsService.deleteById(id);

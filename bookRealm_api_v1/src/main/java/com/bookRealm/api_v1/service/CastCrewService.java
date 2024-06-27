@@ -12,6 +12,7 @@ import com.bookRealm.api_v1.dao.CastCrewRepository;
 import com.bookRealm.api_v1.dto.CastCrewRequestDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.CastCrew;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class CastCrewService implements CastCrewInt {
@@ -44,7 +45,7 @@ public class CastCrewService implements CastCrewInt {
 		if(result.isPresent()) {
 			theCastCrew=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find book with author id-"+id);
 
 		}
 		return theCastCrew;	
@@ -67,7 +68,7 @@ public class CastCrewService implements CastCrewInt {
 		
 		if(castCrew==null) {
 			
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find cast crew with author id-"+id);
 
 		}
 
@@ -103,7 +104,7 @@ public class CastCrewService implements CastCrewInt {
 		}
 		
 		if(books.isEmpty()) {
-			throw new RuntimeException("Books with ids not found="+castCrewRequestDto.getBookId());
+			throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
 		}
 		
 		castCrew.setBooks(books);
@@ -117,7 +118,7 @@ public class CastCrewService implements CastCrewInt {
 		CastCrew castCrew=findById(id);
 		
 		if(castCrew==null) {
-			throw new RuntimeException("Cast-Crew with id do not exit="+id);
+			throw new CustomException("Cast-Crew with id do not exit="+id);
 		}
 		
 		
@@ -143,7 +144,7 @@ public class CastCrewService implements CastCrewInt {
 		}
 		
 		if(books.isEmpty()) {
-			throw new RuntimeException("Books with ids not found="+castCrewRequestDto.getBookId());
+			throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
 		}
 		
 		castCrew.setBooks(books);

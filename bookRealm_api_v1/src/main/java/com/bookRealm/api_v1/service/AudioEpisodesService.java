@@ -16,6 +16,7 @@ import com.bookRealm.api_v1.dao.AudioEpisodesRepository;
 import com.bookRealm.api_v1.dto.AudioEpRequestDto;
 import com.bookRealm.api_v1.entity.AudioEpisodes;
 import com.bookRealm.api_v1.entity.Book;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,7 +55,7 @@ public class AudioEpisodesService implements AudioEpisodesInt {
 		if(result.isPresent()) {
 			theAudioEpisodes=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find Audio Episode with author id-"+id);
 
 		}
 		

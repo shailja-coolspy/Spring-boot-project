@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.bookRealm.api_v1.dao.AuthorRepository;
 import com.bookRealm.api_v1.dao.BookRepository;
 import com.bookRealm.api_v1.entity.Author;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class AuthorService implements AuthorServiceInt {
@@ -50,7 +51,7 @@ public class AuthorService implements AuthorServiceInt {
 		if(result.isPresent()) {
 			theAuthor=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find book with author id-"+id);
 
 		}
 		return theAuthor;
@@ -72,7 +73,7 @@ public class AuthorService implements AuthorServiceInt {
 		Author author=findById(id);
 		
 		if(author==null) {
-			throw new RuntimeException("Did not found author with id"+id);
+			throw new CustomException("Did not found author with id"+id);
 		}
 		authorRepository.deleteById(id);
 		
@@ -89,7 +90,7 @@ public class AuthorService implements AuthorServiceInt {
 		
 		if(result.isPresent()) {
 			if(file.isEmpty() || !file.getContentType().equals("image/jpeg")|| authorName.isEmpty()) {
-				throw new RuntimeException("Detail empty not uploaded or not jpeg file");
+				throw new CustomException("Detail empty not uploaded or not jpeg file");
 			}else {
 				theAuthor=result.get();
 				if(saveFile(file)) {
@@ -99,14 +100,14 @@ public class AuthorService implements AuthorServiceInt {
 				theAuthor.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
 				
 				}else {
-					throw new RuntimeException("Cnanot process request-"+id);
+					throw new CustomException("Cnanot process request-"+id);
 
 				}
 				
 			}
 			
 		}else {
-			throw new RuntimeException("Did not find book id-"+id);
+			throw new CustomException("Did not find book id-"+id);
 		}
 		
 		return  ResponseEntity.ok(authorRepository.save(theAuthor));

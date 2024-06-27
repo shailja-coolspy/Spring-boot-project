@@ -10,6 +10,7 @@ import com.bookRealm.api_v1.dao.ProfileReopsitory;
 import com.bookRealm.api_v1.dto.ProfileRequestDto;
 import com.bookRealm.api_v1.entity.Profile;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 
 
 @Service
@@ -42,7 +43,7 @@ Profile theProfile =null;
 		if(result.isPresent()) {
 			theProfile=result.get();
 		}else {
-			throw new RuntimeException("Did not find user id-"+id);
+			throw new CustomException("Did not find user id-"+id);
 		}
 		return theProfile;	
 		
@@ -63,7 +64,7 @@ Profile theProfile =null;
 		
 		if(user==null)
 		{
-			throw new RuntimeException("No User with id found="+profileRequestDto.getUserId());
+			throw new CustomException("No User with id found="+profileRequestDto.getUserId());
 		}
 		
 		profile.setAbout(profileRequestDto.getAbout());
@@ -78,7 +79,7 @@ Profile theProfile =null;
 		Profile profile=findById(id);
 		
 		if(profile==null) {
-			throw new RuntimeException("No Profile with id found="+id);
+			throw new CustomException("No Profile with id found="+id);
 		}
 		
 		
@@ -86,7 +87,7 @@ Profile theProfile =null;
 		
 		if(user==null)
 		{
-			throw new RuntimeException("No User with id found="+profileRequestDto.getUserId());
+			throw new CustomException("No User with id found="+profileRequestDto.getUserId());
 		}
 		
 		profile.setAbout(profileRequestDto.getAbout());

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bookRealm.api_v1.dto.AudioEpRequestDto;
 import com.bookRealm.api_v1.dto.CustomErrorResponse;
 import com.bookRealm.api_v1.entity.AudioEpisodes;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.AudioEpisodesService;
 
 @RestController
@@ -70,7 +71,7 @@ public class AudioEpController {
 		AudioEpisodes audioEpisodes=audioEpisodesService.findById(id);
 		
 		if(audioEpisodes==null) {
-			throw new RuntimeException("Audio Episode with id not found="+id);
+			throw new CustomException("Audio Episode with id not found="+id);
 		}
 		
 		return ResponseEntity.ok(audioEpisodesService.updateAudioEp(id, imagFile, audioFile, audioEpRequestDto));
@@ -101,19 +102,19 @@ public class AudioEpController {
 	
 	//Exeption handling
 	
-	@ExceptionHandler
-	public ResponseEntity<CustomErrorResponse> handleExcetion(RuntimeException e){
-		
-		CustomErrorResponse customErrorResponse=new CustomErrorResponse();
-		
-		customErrorResponse.setSuccess(false);
-		customErrorResponse.setCurrentTime(System.currentTimeMillis());
-		customErrorResponse.setStatus(HttpStatus.NOT_FOUND.value());
-		customErrorResponse.setMessage(e.getMessage());
-		
-		return new ResponseEntity<>(customErrorResponse,HttpStatus.NOT_FOUND);
-		
-	}
-	
+//	@ExceptionHandler
+//	public ResponseEntity<CustomErrorResponse> handleExcetion(RuntimeException e){
+//		
+//		CustomErrorResponse customErrorResponse=new CustomErrorResponse();
+//		
+//		customErrorResponse.setSuccess(false);
+//		customErrorResponse.setCurrentTime(System.currentTimeMillis());
+//		customErrorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+//		customErrorResponse.setMessage(e.getMessage());
+//		
+//		return new ResponseEntity<>(customErrorResponse,HttpStatus.NOT_FOUND);
+//		
+//	}
+//	
 
 }

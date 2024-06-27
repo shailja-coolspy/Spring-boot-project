@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bookRealm.api_v1.dao.TagsRepository;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Tags;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class TagsService implements TagsInt {
@@ -41,7 +42,7 @@ public class TagsService implements TagsInt {
 		if(result.isPresent()) {
 			theTags=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find tags with id-"+id);
 
 		}
 		return theTags;	
@@ -76,7 +77,7 @@ public class TagsService implements TagsInt {
 		}
 		
 		if(books.isEmpty()) {
-			throw new RuntimeException("Book with id not found="+bookId);
+			throw new CustomException("Book with id not found="+bookId);
 		}
 		
 		Tags tags=new Tags();
@@ -102,7 +103,7 @@ public class TagsService implements TagsInt {
 		}
 		
 		if(books.isEmpty()) {
-			throw new RuntimeException("Book with id not found="+bookId);
+			throw new CustomException("Book with id not found="+bookId);
 		}
 		
 		Tags tags=findById(id);

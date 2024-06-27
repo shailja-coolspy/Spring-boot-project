@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bookRealm.api_v1.dao.RoleRepository;
 import com.bookRealm.api_v1.entity.Roles;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class RolesService implements RolesInt{
@@ -39,7 +40,7 @@ public class RolesService implements RolesInt{
 		if(result.isPresent()) {
 			theRoles=result.get();
 		}else {
-			throw new RuntimeException("Did not find role id-"+id);
+			throw new CustomException("Did not find role id-"+id);
 		}
 		return theRoles;	
 		
@@ -87,7 +88,7 @@ public class RolesService implements RolesInt{
 		if(roles==null)
 		{
 			
-			throw new RuntimeException("No Role with role name found="+roleName);
+			throw new CustomException("No Role with role name found="+roleName);
 		}
 		return roles.getUsers();
 	}

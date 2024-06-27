@@ -15,6 +15,7 @@ import com.bookRealm.api_v1.dto.BookReviewRequestDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.BookReview;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 
 
 @Service
@@ -52,7 +53,7 @@ public class BookReviewService implements BookReviewInt {
 		if(result.isPresent()) {
 			theBookReview=result.get();
 		}else {
-			throw new RuntimeException("Did not find book with author id-"+id);
+			throw new CustomException("Did not find book with author id-"+id);
 
 		}
 		return theBookReview;	
@@ -102,7 +103,7 @@ public class BookReviewService implements BookReviewInt {
 		
 		if(bookReview==null)
 		{
-			throw new RuntimeException("Book Review with id not found="+id);
+			throw new CustomException("Book Review with id not found="+id);
 		}
 		
 		
@@ -112,7 +113,7 @@ public class BookReviewService implements BookReviewInt {
 		
 		if(book==null || user==null)
 		{
-			throw new RuntimeException("User or book id Not found");
+			throw new CustomException("User or book id Not found");
 		}
 		
 		
@@ -133,7 +134,7 @@ public class BookReviewService implements BookReviewInt {
 		
 		if(bookReviews.isEmpty())
 		{
-			throw new RuntimeException("No Review for book id found="+id);
+			throw new CustomException("No Review for book id found="+id);
 		}
 		
 		

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.bookRealm.api_v1.entity.Roles;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.RolesService;
 
 @RestController
@@ -48,7 +49,7 @@ public class RolesController {
 	public String DeleteRoleById(@PathVariable Integer id)
 	{
 		if(rolesService.findById(id)==null) {
-			throw new RuntimeException("Role with id not found="+id);
+			throw new CustomException("Role with id not found="+id);
 		}
 		
 		rolesService.deleteById(id);

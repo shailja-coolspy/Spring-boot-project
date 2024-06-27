@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookRealm.api_v1.dao.UserRepository;
 import com.bookRealm.api_v1.entity.User;
+import com.bookRealm.api_v1.exception.CustomException;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService{
@@ -32,7 +33,7 @@ private UserRepository userRepository;
 
 			
 			if(user==null) {
-				throw new RuntimeException("User with email-Id not found="+username);
+				throw new CustomException("User with email-Id not found="+username);
 			}
 			
 			return user;

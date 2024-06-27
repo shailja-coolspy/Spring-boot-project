@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookRealm.api_v1.dto.ProfileRequestDto;
 import com.bookRealm.api_v1.entity.Profile;
+import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.ProfileService;
 
 @RestController
@@ -60,7 +61,7 @@ public class ProfileController {
 	{
 		if(profileService.findById(id)==null)
 		{
-			throw new RuntimeException("Profile with id not found="+id);
+			throw new CustomException("Profile with id not found="+id);
 		}
 		
 		profileService.deleteById(id);
