@@ -53,6 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		//Get Token
 		String requestToken=request.getHeader("Authorization");
 		
+		System.out.println("Request token header="+requestToken);
+		
 		System.out.println("Bearer Token = "+requestToken);
 		
 		 String requestURI = request.getRequestURI();
@@ -65,6 +67,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	        if (skipRequest) {
 	            filterChain.doFilter(request, response);
+	            return;
+	        }
+	        
+	        if(requestToken==null || !requestToken.startsWith("Bearer")) {
+	        	filterChain.doFilter(request, response);
 	            return;
 	        }
 		

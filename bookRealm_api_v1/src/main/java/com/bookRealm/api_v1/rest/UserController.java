@@ -18,6 +18,7 @@ import com.bookRealm.api_v1.entity.User;
 import com.bookRealm.api_v1.exception.CustomException;
 import com.bookRealm.api_v1.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController

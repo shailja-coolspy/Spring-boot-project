@@ -14,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import jakarta.servlet.DispatcherType;
 
 
 @Configuration
@@ -63,11 +66,18 @@ public class SecurityConfig {
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 	        http.authorizeHttpRequests(configurer ->
-	                    configurer.requestMatchers(HttpMethod.POST,"/api/v1/auth/login").permitAll()
+	                    configurer
+	                    .requestMatchers(HttpMethod.POST,"/api/v1/auth/login").permitAll()
 	                    .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll()
 	                    .requestMatchers(HttpMethod.GET,"/api/v1/auth/confirm").permitAll()
+	                    .requestMatchers(HttpMethod.GET,"/v3/api-docs").permitAll()
+	                    .requestMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()
+	                    .requestMatchers(HttpMethod.GET,"/swagger-resources/**").permitAll()
+	                    .requestMatchers(HttpMethod.GET,"/swagger-ui/**").permitAll()
+	                    .requestMatchers(HttpMethod.GET,"/webjars/**").permitAll()
 	                    .requestMatchers("/error").permitAll()
 	                    .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
+	                    
 	                            .anyRequest().authenticated()
 	                            );
 	        
