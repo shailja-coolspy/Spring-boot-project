@@ -45,11 +45,11 @@ public class Book {
 	private List<Categorie> categories;
 	
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<AudioEpisodes> audioEpisodes;
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<ReadEpisodes> readEpisodes;
 	

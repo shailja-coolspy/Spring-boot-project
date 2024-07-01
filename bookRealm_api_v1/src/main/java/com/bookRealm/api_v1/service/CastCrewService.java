@@ -18,14 +18,14 @@ import com.bookRealm.api_v1.exception.CustomException;
 public class CastCrewService implements CastCrewInt {
 	
 	private CastCrewRepository castCrewRepository;
-	private BookService bookService;
+	//private BookService bookService;
 	
 	
 	@Autowired
-	public CastCrewService(CastCrewRepository castCrewRepository,BookService bookService) {
+	public CastCrewService(CastCrewRepository castCrewRepository) {
 		super();
 		this.castCrewRepository = castCrewRepository;
-		this.bookService=bookService;
+		//this.bookService=bookService;
 	}
 
 	@Override
@@ -86,28 +86,29 @@ public class CastCrewService implements CastCrewInt {
 		castCrew.setName(castCrewRequestDto.getCastName());
 		castCrew.setRole(castCrewRequestDto.getCastRole());
 		
-		List<Book> books=new ArrayList<>();
-		List<Integer> bookIds=castCrewRequestDto.getBookId();
+		//List<Book> books=new ArrayList<>();
+		//List<Integer> bookIds=castCrewRequestDto.getBookId();
 		
-		for(Integer bookId:bookIds) {
-			
-			Book book=null;
-			try {
-			 book=bookService.findById(bookId);
-			}
-			catch (Exception e) {
-				// TODO: handle exception
-			}
-			if(book!=null) {
-				books.add(book);
-			}
-		}
+//		for(Integer bookId:bookIds) {
+//			
+//			Book book=null;
+//			try {
+//			 book=bookService.findById(bookId);
+//			}
+//			catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//			if(book!=null) {
+//				books.add(book);
+//			}
+//		}
+//		
+//		if(books.isEmpty()) {
+//			//throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
+//			books=null;
+//		}
 		
-		if(books.isEmpty()) {
-			throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
-		}
-		
-		castCrew.setBooks(books);
+		//castCrew.setBooks(books);
 		
 		return castCrewRepository.save(castCrew);
 	}
@@ -125,29 +126,29 @@ public class CastCrewService implements CastCrewInt {
 		castCrew.setName(castCrewRequestDto.getCastName());
 		castCrew.setRole(castCrewRequestDto.getCastRole());
 		
-		List<Book> books=new ArrayList<>();
-		List<Integer> bookIds=castCrewRequestDto.getBookId();
-		
-		for(Integer bookId:bookIds) {
-			
-			Book book=null;
-			try {
-			 book=bookService.findById(bookId);
-			}
-			catch (Exception e) {
-				// TODO: handle exception
-			}
-			
-			if(book!=null) {
-				books.add(book);
-			}
-		}
-		
-		if(books.isEmpty()) {
-			throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
-		}
-		
-		castCrew.setBooks(books);
+//		List<Book> books=new ArrayList<>();
+//		List<Integer> bookIds=castCrewRequestDto.getBookId();
+//		
+//		for(Integer bookId:bookIds) {
+//			
+//			Book book=null;
+//			try {
+//			 book=bookService.findById(bookId);
+//			}
+//			catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//			
+//			if(book!=null) {
+//				books.add(book);
+//			}
+//		}
+//		
+//		if(books.isEmpty()) {
+//			throw new CustomException("Books with ids not found="+castCrewRequestDto.getBookId());
+//		}
+//		
+		//castCrew.setBooks(castCrew.getBooks());
 		
 		return castCrewRepository.save(castCrew);	}
 

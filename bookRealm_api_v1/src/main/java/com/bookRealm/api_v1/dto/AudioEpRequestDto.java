@@ -15,7 +15,7 @@ public class AudioEpRequestDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AudioEpRequestDto(String title, Long audioDuration, int bookId) {
+	public AudioEpRequestDto(String title, Long audioDuration,int bookId) {
 		super();
 		this.title = title;
 		this.audioDuration = audioDuration;

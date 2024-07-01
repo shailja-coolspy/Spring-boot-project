@@ -72,6 +72,7 @@ public class ReadEpisodesService implements ReadEpisodeInt {
 			
 			ReadEpisodes readEpisodes =new ReadEpisodes();
 			
+			
 			Book book= bookService.findById(readEpRequestDto.getBookId());
 			
 			readEpisodes.setTitle(readEpRequestDto.getTitle());
@@ -79,6 +80,8 @@ public class ReadEpisodesService implements ReadEpisodeInt {
 			readEpisodes.setDuration(readEpRequestDto.getReadDuration());
 			
 			readEpisodes.setText(readEpRequestDto.getRead_text());
+			
+			
 			
 			readEpisodes.setBook(book);
 			

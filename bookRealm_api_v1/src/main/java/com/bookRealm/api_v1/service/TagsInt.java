@@ -15,9 +15,9 @@ Tags save(Tags tags);
 	
 	void deleteById(int id);
 	
-	Tags createTags(List<Integer> bookId,String tagName);
+	Tags createTags(String tagName);
 	
-	Tags updateTags(Integer id,List<Integer> bookId,String tagName);
+	Tags updateTags(Integer id,String tagName);
 
 
 

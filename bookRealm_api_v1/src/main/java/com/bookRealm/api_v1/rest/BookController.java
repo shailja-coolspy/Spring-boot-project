@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bookRealm.api_v1.dto.BookDTO;
+import com.bookRealm.api_v1.dto.BookRequestDto;
 import com.bookRealm.api_v1.entity.Book;
 import com.bookRealm.api_v1.entity.Categorie;
 import com.bookRealm.api_v1.exception.CustomException;
@@ -50,19 +53,27 @@ public class BookController {
 		return book;
 	}
 	
-	@PostMapping("/books")
-	public Book createBook(@RequestBody Book book)
+	@PostMapping(consumes = {"multipart/form-data"},value="/books")
+	public Book createBook(@RequestParam("imgFile")MultipartFile file,@RequestParam("Book") String bookRequestDto)
 	{
-		return bookService.save(book);
+		
+		if(file.isEmpty() || !file.getContentType().equals("image/jpeg")) {
+			throw new CustomException("File not uploaded or not jpeg file");
+		}
+		
+		return bookService.createBook(bookRequestDto, file);
 	}
 	
 	
 	@PutMapping("/books/{id}")
-	public Book updateBook(@PathVariable Integer id,@RequestBody Book book) {
+	public Book updateBook(@PathVariable Integer id,@RequestParam("imgFile")MultipartFile file,@RequestParam("Book") String bookRequestDto) {
 		
-		bookService.update(book, id);
+		if(file.isEmpty() || !file.getContentType().equals("image/jpeg")) {
+			throw new CustomException("File not uploaded or not jpeg file");
+		}
 		
-		return book;
+		return bookService.update(id,file,bookRequestDto);
+		
 	}
 	
 	@DeleteMapping("/books/{id}")

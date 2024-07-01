@@ -25,14 +25,14 @@ import com.bookRealm.api_v1.exception.CustomException;
 public class GenresService implements GenresInt {
 	
 	private GenresRepository genresRepository;
-	private BookService bookService;
+	//private BookService bookService;
 	
 	
 	@Autowired
-	public GenresService(GenresRepository genresRepository,BookService bookService) {
+	public GenresService(GenresRepository genresRepository) {
 		super();
 		this.genresRepository = genresRepository;
-		this.bookService=bookService;
+		//this.bookService=bookService;
 	}
 
 	@Override
@@ -69,29 +69,29 @@ Genres theGenres=null;
 		
 		if(saveFile(file)) {
 			
-			List<Book> books=new ArrayList<>();
-			
-			for(int id:genresDto.getBookId()) {
-				
-				Book book=null;
-				try {
-					book=bookService.findById(id);
-				}
-				catch (Exception e) {
-					// TODO: handle exception
-				}
-				
-				if(book!=null) {
-					books.add(book);
-				}
-			}
-			
-			if(books.isEmpty()) {
-				throw new CustomException("No book with ids="+genresDto.getBookId());
-			}
+//			List<Book> books=new ArrayList<>();
+//			
+//			for(int id:genresDto.getBookId()) {
+//				
+//				Book book=null;
+//				try {
+//					book=bookService.findById(id);
+//				}
+//				catch (Exception e) {
+//					// TODO: handle exception
+//				}
+//				
+//				if(book!=null) {
+//					books.add(book);
+//				}
+//			}
+//			
+//			if(books.isEmpty()) {
+//				throw new CustomException("No book with ids="+genresDto.getBookId());
+//			}
 			genres.setName(genresDto.getGenresName());
 			genres.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
-			genres.setBooks(books);
+			//genres.setBooks(books);
 		}
 		else{
 			throw new CustomException("File did not saved");
@@ -109,30 +109,30 @@ Genres theGenres=null;
 		
 		if(saveFile(file)) {
 			
-			List<Book> books=new ArrayList<>();
-			
-			for(Integer bookId:genresDto.getBookId()) {
-				
-				Book book=null;
-				try {
-					book=bookService.findById(bookId);
-				}
-				catch (Exception e) {
-					// TODO: handle exception
-				}
-				
-				if(book!=null) {
-					books.add(book);
-				}
-			}
-			
-			if(books.isEmpty()) {
-				throw new CustomException("No book with ids="+genresDto.getBookId());
-			}
+//			List<Book> books=new ArrayList<>();
+//			
+//			for(Integer bookId:genresDto.getBookId()) {
+//				
+//				Book book=null;
+//				try {
+//					book=bookService.findById(bookId);
+//				}
+//				catch (Exception e) {
+//					// TODO: handle exception
+//				}
+//				
+//				if(book!=null) {
+//					books.add(book);
+//				}
+//			}
+//			
+//			if(books.isEmpty()) {
+//				throw new CustomException("No book with ids="+genresDto.getBookId());
+//			}
 			
 			genres.setName(genresDto.getGenresName());
 			genres.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());
-			genres.setBooks(books);
+			//genres.setBooks(genres.getBooks());
 		}
 		else{
 			throw new RuntimeException("File did not saved");

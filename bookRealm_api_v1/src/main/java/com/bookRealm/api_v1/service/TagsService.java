@@ -16,14 +16,14 @@ import com.bookRealm.api_v1.exception.CustomException;
 public class TagsService implements TagsInt {
 	
 	private TagsRepository tagsRepository;
-	private BookService bookService;
+//	private BookService bookService;
 	
 	
 	@Autowired
-	public TagsService(TagsRepository tagsRepository,BookService bookService) {
+	public TagsService(TagsRepository tagsRepository) {
 		super();
 		this.tagsRepository = tagsRepository;
-		this.bookService=bookService;
+		//this.bookService=bookService;
 	}
 
 	@Override
@@ -63,52 +63,52 @@ public class TagsService implements TagsInt {
 	}
 
 	@Override
-	public Tags createTags(List<Integer> bookId, String tagName) {
+	public Tags createTags(String tagName) {
 		// TODO Auto-generated method stub
-		List<Book> books=new ArrayList<>();
-		
-		for(int id:bookId) {
-		Book book= bookService.findById(id);
-		if(book!=null) {
-			
-			books.add(book);
-		}
-		
-		}
-		
-		if(books.isEmpty()) {
-			throw new CustomException("Book with id not found="+bookId);
-		}
-		
+//		List<Book> books=new ArrayList<>();
+//		
+//		for(int id:bookId) {
+//		Book book= bookService.findById(id);
+//		if(book!=null) {
+//			
+//			books.add(book);
+//		}
+//		
+//		}
+//		
+//		if(books.isEmpty()) {
+//			throw new CustomException("Book with id not found="+bookId);
+//		}
+//		
 		Tags tags=new Tags();
-		
-		tags.setBooks(books);
+//		
+//		tags.setBooks(books);
 		tags.setTag_name(tagName);
 		return tagsRepository.save(tags);
 	}
 
 	@Override
-	public Tags updateTags(Integer id, List<Integer> bookId, String tagName) {
+	public Tags updateTags(Integer id, String tagName) {
 		// TODO Auto-generated method stub
 		
-		List<Book> books=new ArrayList<>();
-		
-		for(int book_Id:bookId) {
-		Book book= bookService.findById(book_Id);
-		if(book!=null) {
-			
-			books.add(book);
-		}
-		
-		}
-		
-		if(books.isEmpty()) {
-			throw new CustomException("Book with id not found="+bookId);
-		}
+//		List<Book> books=new ArrayList<>();
+//		
+//		for(int book_Id:bookId) {
+//		Book book= bookService.findById(book_Id);
+//		if(book!=null) {
+//			
+//			books.add(book);
+//		}
+//		
+//		}
+//		
+//		if(books.isEmpty()) {
+//			throw new CustomException("Book with id not found="+bookId);
+//		}
 		
 		Tags tags=findById(id);
 		
-		tags.setBooks(books);
+		//tags.setBooks(tags.getBooks());
 		tags.setTag_name(tagName);
 		return tagsRepository.save(tags);
 	}

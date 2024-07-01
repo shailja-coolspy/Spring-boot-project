@@ -120,6 +120,7 @@ public class CategoryService implements CategoryServiceInt{
 				theCategorie=result.get();
 				if(saveFile(file)) {
 				
+					//theCategorie.setBooks(theCategorie.getBooks());
 				theCategorie.setCategoryName(categoryName);
 
 				theCategorie.setImageUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(LocalDate.now()+file.getOriginalFilename()).toUriString());

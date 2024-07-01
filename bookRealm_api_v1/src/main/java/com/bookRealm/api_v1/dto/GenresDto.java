@@ -5,16 +5,16 @@ import java.util.List;
 public class GenresDto {
 	
 	private String genresName;
-	private List<Integer> bookId;
+//	private List<Integer> bookId;
 	
 	public GenresDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public GenresDto(String genresName, List<Integer> bookId) {
+	public GenresDto(String genresName) {
 		super();
 		this.genresName = genresName;
-		this.bookId = bookId;
+		//this.bookId = bookId;
 	}
 	public String getGenresName() {
 		return genresName;
@@ -22,12 +22,12 @@ public class GenresDto {
 	public void setGenresName(String genresName) {
 		this.genresName = genresName;
 	}
-	public List<Integer> getBookId() {
-		return bookId;
-	}
-	public void setBookId(List<Integer> bookId) {
-		this.bookId = bookId;
-	}
+//	public List<Integer> getBookId() {
+//		return bookId;
+//	}
+//	public void setBookId(List<Integer> bookId) {
+//		this.bookId = bookId;
+//	}
 	
 	
 }

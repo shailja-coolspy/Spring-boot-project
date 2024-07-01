@@ -6,18 +6,18 @@ public class CastCrewRequestDto {
 	private String castName;
 	private String castRole;
 	
-	private List<Integer> bookId;
+	//private List<Integer> bookId;
 
 	public CastCrewRequestDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CastCrewRequestDto(String castName, String castRole, List<Integer> bookId) {
+	public CastCrewRequestDto(String castName, String castRole) {
 		super();
 		this.castName = castName;
 		this.castRole = castRole;
-		this.bookId = bookId;
+		//this.bookId = bookId;
 	}
 
 	public String getCastName() {
@@ -36,13 +36,13 @@ public class CastCrewRequestDto {
 		this.castRole = castRole;
 	}
 
-	public List<Integer> getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(List<Integer> bookId) {
-		this.bookId = bookId;
-	}
+//	public List<Integer> getBookId() {
+//		return bookId;
+//	}
+//
+//	public void setBookId(List<Integer> bookId) {
+//		this.bookId = bookId;
+//	}
 	
 	
 }

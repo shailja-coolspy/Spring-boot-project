@@ -2,6 +2,8 @@ package com.bookRealm.api_v1.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bookRealm.api_v1.entity.Book;
 
 public interface BookServiceInt {
@@ -12,7 +14,9 @@ public interface BookServiceInt {
 	
 	Book save(Book book);
 	
-	Book update(Book book,Integer id);
+	Book createBook(String bookDto,MultipartFile file);
+	
+	Book update(Integer bid,MultipartFile file,String bookDto);
 	
 	void deleteById(int id);
 	
@@ -23,6 +27,8 @@ public interface BookServiceInt {
 	
 	//Search Book
 	List<Book> searchBook(String keyword);
+	
+	public boolean saveFile(MultipartFile file);
 
 
 }

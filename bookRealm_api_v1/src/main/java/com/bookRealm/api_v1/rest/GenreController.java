@@ -49,7 +49,7 @@ public class GenreController {
 	public Genres createGenres(@RequestParam("imagFile")MultipartFile file,@ModelAttribute GenresDto genresDto) {
 		
 		if(file.isEmpty() || !file.getContentType().equals("image/jpeg")) {
-			throw new RuntimeException("File not uploaded or not jpeg file");
+			throw new CustomException("File not uploaded or not jpeg file");
 		}
 		
 		return genresService.createGenres(file, genresDto);

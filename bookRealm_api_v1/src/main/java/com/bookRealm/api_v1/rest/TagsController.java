@@ -33,12 +33,12 @@ public class TagsController {
 	}
 	
 	@PostMapping("/tags")
-	public Tags createTags(@RequestParam List<Integer> bookId,@RequestParam("tagName")String tagName) {
-		return tagsService.createTags(bookId, tagName);
+	public Tags createTags(@RequestParam("tagName")String tagName) {
+		return tagsService.createTags(tagName);
 	}
 	
 	@PutMapping("/tags/{id}")
-	public Tags updateTags(@PathVariable Integer id,@RequestParam List<Integer> bookId,@RequestParam("tagName")String tagName) {
+	public Tags updateTags(@PathVariable Integer id,@RequestParam("tagName")String tagName) {
 		
 		Tags tags=tagsService.findById(id);
 		
@@ -46,7 +46,7 @@ public class TagsController {
 			throw new CustomException("Tag does not exits with id="+id);
 		}
 		
-		return tagsService.updateTags(id,bookId, tagName);
+		return tagsService.updateTags(id,tagName);
 	}
 	
 	@DeleteMapping("/tags/{id}")
